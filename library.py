@@ -1,12 +1,15 @@
 #!usr/bin/env python
-
+""" Internal library class which holds all the bound functions
+"""
 # TODO : Comments,docstring, tests,code..
 
 import ctypes as C
 from ctypes.util import find_library
 import os
 import sys
+from warnings import warn
 from utils import *
+from varnam import FUNCTION_LIST
 
 class VarnamLibrary(object):
     """Class which loads the varnam library
@@ -27,28 +30,49 @@ class VarnamLibrary(object):
         if self.__already_called:
             return None
         # Status variable and error code
-        self.__status = (0,'')
-        # Windowsine avaganikkan paadilello ! 
+        self.__status = (0, '')
+        # Windowsine avaganikkan paadilello !
         if sys.platform == 'win32':
-            libFunc = C.windll
+            libfunc = C.windll
         else:
-            libFunc = C.cdll
+            libfunc = C.cdll
 
         if not libraryName:
             libraryName = 'varnam'
-        getLib = find_library(libraryName)
-        if not getLib:
-            msg = "Cannot load library name %s .Are you sure varnam was installed correctly ?"%libraryName
+        getlib = find_library(libraryName)
+        if not getlib:
+            msg = ("Cannot load library name %s."
+                   "Are you sure varnam was installed correctly ?"%libraryName)
             raise VarnamLibraryLoadError(msg)
 
         try:
-            self.lib = getattr(libFunc,getLib)
+            self.lib = getattr(libfunc, getlib)
         except Exception, msg:
-            print "Exception occured while loading library: %s"%string(msg)
+            print "Exception occured while loading library: %s"%str(msg)
             self.__status = (1, msg)
-                                 
         if self.__status[0] == 0:
             self.__status = (0, "Library loaded at %s"%str(self.lib))
+        for function in FUNCTION_LIST:
+            try:
+                self.bind_function(function)
+            except AttributeError, msg:
+                warn("Bind error %s "%function[0], VarnamFunctionNotFound)
+
+    def bind_function(self, funcname):
+        """ Binds a function to the class from FUNCTION_LIST
+        """
+        restype = None
+        name, args = funcname[0:2]
+        if len(funcname) == 3:
+            restype = funcname[2]
+        name = name.strip()
+        function_name = getattr(self.lib, name)
+        setattr(self, name, function_name)
+        function_name.argtypes = args
+        if restype:
+            function_name.restype = restype
 
     def status(self):
+        """ Gets you the status of the library
+        """
         return self.__status
