@@ -9,10 +9,10 @@ import os
 import sys
 from warnings import warn
 from utils import *
-from varnam import FUNCTION_LIST
+from varnam_defs import FUNCTION_LIST
 
-class VarnamLibrary(object):
-    """Class which loads the varnam library
+class InternalVarnamLibrary(object):
+    """Internal class which loads the varnam library
     """
     # Singleton pattern code by Duncan Booth
     __instance = None
