@@ -19,6 +19,13 @@ class Varray(C.Structure):
                 ('used', C.c_size_t),
                 ('index', INT)]
 
+VARRAY_PTR = C.POINTER(Varray)
+
+class VlearnStatus(C.Structure):
+    _fields_ = [('total_words', INT),
+                ('failed', INT)]
+
+VLEARN_STATUS_PTR = C.POINTER(VlearnStatus)
 
 class Token(C.Structure):
     _fields_ = [('id', INT),
@@ -33,12 +40,31 @@ class Token(C.Structure):
                 ('value2', STRING),
                 ('value3', STRING)]
 
-    
 class Word(C.Structure):
     _fields_ = [('text', STRING),
                 ('confidence', INT)]
 
 FUNCTION_LIST = [
-    ('varnam_init', (STRING, C.POINTER(VARNAM_PTR), C.POINTER(STRING)), INT),
-    ('varnam_init_from_lang', (STRING, C.POINTER(VARNAM_PTR), C.POINTER(STRING)), INT),
-    ('varnam_version', (), STRING)]
+    ['varnam_init', [STRING, C.POINTER(VARNAM_PTR), C.POINTER(STRING)], INT],
+    ['varnam_init_from_lang', [STRING, C.POINTER(VARNAM_PTR), C.POINTER(STRING)], INT],
+    ['varnam_version', [], STRING],
+    ['varnam_transliterate', [VARNAM_PTR, STRING, C.POINTER(VARRAY_PTR)], INT],
+    ['varnam_reverse_transliterate', [VARNAM_PTR, STRING, C.POINTER(STRING)], INT],
+    ['varnam_detect_lang', [VARNAM_PTR, STRING], INT],
+    ['varnam_learn', [VARNAM_PTR, STRING], INT],
+    ['varnam_train', [VARNAM_PTR, STRING, STRING], INT],
+    ['varnam_learn_from_file', [VARNAM_PTR, STRING, VLEARN_STATUS_PTR, VOID, VOID], INT],
+    ['varnam_create_token', [VARNAM_PTR, STRING, STRING, STRING, STRING, STRING, INT, INT, INT, INT, INT], INT],
+    ['varnam_set_scheme_details', [VARNAM_PTR, STRING, STRING, STRING, STRING, STRING], INT],
+    ['varnam_get_last_error', [VARNAM_PTR], STRING],
+    ['varnam_flush_buffer', [VARNAM_PTR], INT],
+    ['varnam_config', [], INT],
+    ['varnam_get_all_tokens', [VARNAM_PTR, INT, C.POINTER(VARRAY_PTR)], INT],
+    ['varray_get', [VARRAY_PTR, INT], VOID],
+    ['varray_length', [VARRAY_PTR], INT],
+    ['varnam_export_words', [VARNAM_PTR, INT, STRING, INT, VOID], INT],
+    ['varnam_import_learnings_from_file', [VARNAM_PTR, STRING, VOID], INT],
+    ['varnam_destroy', [VARNAM_PTR], VOID]]
+
+# TODO: varnam_learn_from_file uses a callback. So does some other function.
+# TODO: varnam_config uses a varargs function.
