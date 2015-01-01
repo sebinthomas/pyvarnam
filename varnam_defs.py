@@ -27,6 +27,7 @@ class VlearnStatus(C.Structure):
 
 VLEARN_STATUS_PTR = C.POINTER(VlearnStatus)
 
+#TODO: do we need this ?
 class Token(C.Structure):
     _fields_ = [('id', INT),
                 ('type', INT),
@@ -64,7 +65,11 @@ FUNCTION_LIST = [
     ['varray_length', [VARRAY_PTR], INT],
     ['varnam_export_words', [VARNAM_PTR, INT, STRING, INT, VOID], INT],
     ['varnam_import_learnings_from_file', [VARNAM_PTR, STRING, VOID], INT],
-    ['varnam_destroy', [VARNAM_PTR], VOID]]
+    ['varnam_destroy', [VARNAM_PTR], VOID],
+    ['varnam_get_scheme_file', [VARNAM_PTR], STRING],
+    ['varnam_get_suggestions_file', [VARNAM_PTR], STRING],
+    ['varnam_create_token', [VARNAM_PTR, STRING, STRING, STRING, STRING, STRING, INT, INT, INT, INT, INT], INT],
+    ['varnam_config']]
 
 # TODO: varnam_learn_from_file uses a callback. So does some other function.
 # TODO: varnam_config uses a varargs function.

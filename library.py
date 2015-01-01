@@ -62,14 +62,21 @@ class InternalVarnamLibrary(object):
         """ Binds a function to the class from FUNCTION_LIST
         """
         restype = None
-        name, args = funcname[0:2]
-        if len(funcname) == 3:
+        name = funcname[0]
+        try:
+            args = funcname[1]
+        except IndexError:
+            args = None
+        try:
             restype = funcname[2]
+        except IndexError:
+            restype = None
         name = name.strip()
         function_name = getattr(self.lib, name)
         setattr(self, name, function_name)
-        function_name.argtypes = args
-        if restype:
+        if args is not None:
+            function_name.argtypes = args
+        if restype is not None:
             function_name.restype = restype
 
     def status(self):

@@ -17,10 +17,13 @@ class Varnam:
         self.__handle_obj = VarnamHandle()
         self.handle = C.pointer(self.__handle_obj)
         self.message = STRING()
+        self.__vlearn_status_obj = VlearnStatus()
+        self.learn_status = C.pointer(self.__vlearn_status_obj)
 
     def varnam_init(self, scheme_file):
         """
         function to initialize varnam handle
+        
         scheme_file: valid scheme file(*.vst) path
         """
         return self.lib.varnam_init(
@@ -45,8 +48,10 @@ class Varnam:
     def varnam_transliterate(self, input):
         """
         Performs transliteration on a given input
-        Returns: List of transliterations encoded in UTF-8
-        input: input word to transliterate
+        
+        Returns: tuple of transliterations encoded in UTF-8
+                 and their confidence values.
+        input: input word to transliterate.
         """
         varray_object = Varray()
         varray_ptr = C.pointer(varray_object)
@@ -61,4 +66,50 @@ class Varnam:
             result.append((word_ptr.contents.text,
                            word_ptr.contents.confidence))
         return result
+
+    def varnam_create_token(self, pattern, value1, value2, value3,
+                            tag, token_type, match_type, priority,
+                            accept_condition, buffered):
+        """creates a token
+
+        for more info regarding parameters look into api.h
+        """
+        res_code = self.lib.varnam_create_token(self.handle,
+                                                pattern, value1,
+                                                value2, value3,
+                                                tag, token_type,
+                                                match_type, priority,
+                                                accept_condition,
+                                                buffered)
+        return res_code
+
+    def varnam_learn(self, word):
+        """
+        Varnam will learn the supplied word and possible
+        ways to write it.
+        
+        word: const char* string to learn
+        """
+        res_code = self.lib.varnam_learn(self.handle, word)
+        return res_code
+
+    def varnam_train(self, pattern, word):
+        """
+        Trains varnam to associate a pattern with the word
+        pattern: const char* string pattern
+        
+        word: const char* string word
+        """
+        res_code = self.lib.varnam_train(self.handle, pattern, word)
+        return res_code
+
+    def varnam_config(self, type, *args):
+        """
+        Varnam configuration.
+
+        Does not persist. Resets to default when varnam_init()
+        is called again
+        """
+        res_code = self.lib.varnam_config(self.handle, type, *args)
+        return res_code
         
