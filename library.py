@@ -34,8 +34,10 @@ class InternalVarnamLibrary(object):
         # Windowsine avaganikkan paadilello !
         if sys.platform == 'win32':
             libfunc = C.windll
+            self.libcallback = C.WINFUNCTYPE
         else:
             libfunc = C.cdll
+            self.libcallback = C.CFUNCTYPE
 
         if not libraryName:
             libraryName = 'varnam'
@@ -78,6 +80,9 @@ class InternalVarnamLibrary(object):
             function_name.argtypes = args
         if restype is not None:
             function_name.restype = restype
+
+    def callback(self, *args):
+        return self.libcallback(*args)
 
     def status(self):
         """ Gets you the status of the library

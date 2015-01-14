@@ -19,6 +19,8 @@ class Varnam:
         self.message = STRING()
         self.__vlearn_status_obj = VlearnStatus()
         self.learn_status = C.pointer(self.__vlearn_status_obj)
+        self.learn_callback = self.lib.callback(VOID, VARNAM_PTR, STRING,
+                                                INT, VOID)
 
     def varnam_init(self, scheme_file):
         """
@@ -112,4 +114,20 @@ class Varnam:
         """
         res_code = self.lib.varnam_config(self.handle, type, *args)
         return res_code
-        
+
+    # def varnam_learn_from_file(self, filepath, callback, obj):
+    #     """
+    #     Varnam learns from the file specified.
+
+    #     filepath: File to learn
+    #     callback: callback function invoked on each word
+    #               consult api.h for more information
+    #     obj: Additional data to be passed to the callback.
+    #     """
+    #     l_callback = self.learn_callback(callback)
+    #     obj_ref = VOID(obj)
+    #     res_code = self.lib.varnam_learn_from_file(self.handle, filepath,
+    #                                                callback,
+
+    
+    
