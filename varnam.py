@@ -115,19 +115,18 @@ class Varnam:
         res_code = self.lib.varnam_config(self.handle, type, *args)
         return res_code
 
-    # def varnam_learn_from_file(self, filepath, callback, obj):
-    #     """
-    #     Varnam learns from the file specified.
+    def varnam_learn_from_file(self, filepath, callback):
+        """
+        Varnam learns from the file specified.
 
-    #     filepath: File to learn
-    #     callback: callback function invoked on each word
-    #               consult api.h for more information
-    #     obj: Additional data to be passed to the callback.
-    #     """
-    #     l_callback = self.learn_callback(callback)
-    #     obj_ref = VOID(obj)
-    #     res_code = self.lib.varnam_learn_from_file(self.handle, filepath,
-    #                                                callback,
+        filepath: File to learn
+        callback: callback function invoked on each word
+                  consult api.h for more information
+        """
+        l_callback = self.learn_callback(callback)
+        res_code = self.lib.varnam_learn_from_file(self.handle, filepath,
+                                                   self.learn_status, l_callback,
+                                                   None)
 
     
     
