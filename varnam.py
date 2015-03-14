@@ -22,7 +22,7 @@ class Varnam:
         self.learn_callback = self.lib.callback(VOID, VARNAM_PTR, STRING,
                                                 INT, VOID)
 
-    def varnam_init(self, scheme_file):
+    def varnam_init(self, scheme_file=""):
         """
         function to initialize varnam handle
         
@@ -60,13 +60,15 @@ class Varnam:
         res_code = self.lib.varnam_transliterate(self.handle,
                                                input,
                                                C.byref(varray_ptr))
+        if res_code is not VARNAM_SUCCESS:
+            raise VarnamResultNotSuccess("varnam_transliterate",res_code)
         result = []
         length = self.lib.varray_length(varray_ptr)
         for i in range(length):
             word_ptr = C.cast(self.lib.varray_get(varray_ptr, i),
                               C.POINTER(Word))
-            result.append((word_ptr.contents.text,
-                           word_ptr.contents.confidence))
+            word = word_ptr.contents.text.decode('utf-8')
+            result.append((word, word_ptr.contents.confidence))
         return result
 
     def varnam_create_token(self, pattern, value1, value2, value3,
@@ -128,5 +130,6 @@ class Varnam:
                                                    self.learn_status, l_callback,
                                                    None)
 
-    
+    def varnam_destroy(self):
+        self.lib.varnam_destroy(self.handle)
     
