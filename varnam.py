@@ -32,12 +32,12 @@ class Varnam:
             scheme_file, C.byref(self.handle),
             C.byref(self.message))
 
-    def varnam_init_from_lang(self, lang_code):
+    def varnam_init_from_id(self, lang_code):
         """
         Initializes the varnam library from language code
         lang_code: language code in ISO 639-1 format
         """
-        return self.lib.varnam_init_from_lang(
+        return self.lib.varnam_init_from_id(
             lang_code, C.byref(self.handle),
             C.byref(self.message))
 

@@ -75,7 +75,7 @@ class VarnamMLTrans(unittest.TestCase):
         self.handle_object = VarnamHandle()
         self.handle = C.pointer(self.handle_object)
         msg = STRING()
-        init = self.lib.varnam_init_from_lang('ml', C.byref(self.handle), C.byref(msg))
+        init = self.lib.varnam_init_from_id('ml', C.byref(self.handle), C.byref(msg))
         assert init is VARNAM_SUCCESS
 
     def test_transliterate(self):

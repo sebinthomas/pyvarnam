@@ -47,7 +47,7 @@ class Word(C.Structure):
 
 FUNCTION_LIST = [
     ['varnam_init', [STRING, C.POINTER(VARNAM_PTR), C.POINTER(STRING)], INT],
-    ['varnam_init_from_lang', [STRING, C.POINTER(VARNAM_PTR), C.POINTER(STRING)], INT],
+    ['varnam_init_from_id', [STRING, C.POINTER(VARNAM_PTR), C.POINTER(STRING)], INT],
     ['varnam_version', [], STRING],
     ['varnam_transliterate', [VARNAM_PTR, STRING, C.POINTER(VARRAY_PTR)], INT],
     ['varnam_reverse_transliterate', [VARNAM_PTR, STRING, C.POINTER(STRING)], INT],
