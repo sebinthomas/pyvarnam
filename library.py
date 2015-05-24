@@ -11,6 +11,14 @@ from warnings import warn
 from utils import *
 from varnam_defs import FUNCTION_LIST
 
+#REMINDER: Change this for every major release of varnam
+
+LIBVARNAM_MAJOR_VERSION = 3
+
+VARNAM_PATHS = ['/usr/local/lib', '/usr/local/lib/i386-linux-gnu', '/usr/local/lib/x86_64-linux-gnu', '/usr/lib/i386-linux-gnu', '/usr/lib/x86_64-linux-gnu', '/usr/lib']
+
+VARNAM_NAMES = ['libvarnam.so', "libvarnam.so.{0}".format(LIBVARNAM_MAJOR_VERSION), 'libvarnam.dylib', 'varnam.dll']
+
 class InternalVarnamLibrary(object):
     """Internal class which loads the varnam library
     """
@@ -23,7 +31,7 @@ class InternalVarnamLibrary(object):
             cls.__instance = object.__new__(cls)
         return cls.__instance
 
-    def __init__(self, libraryName=None):
+    def __init__(self):
         """ Find the library if not given and initialize
         """
         #nerathe vilichitundenkil inim vilikenda ennu parayan
@@ -39,14 +47,14 @@ class InternalVarnamLibrary(object):
             libfunc = C.cdll
             self.libcallback = C.CFUNCTYPE
 
-        if not libraryName:
-            libraryName = 'varnam'
-        getlib = find_library(libraryName)
-        if not getlib:
-            msg = ("Cannot load library name %s."
-                   "Are you sure varnam was installed correctly ?"%libraryName)
+        # Hardcoding a shared library's path during dev time is
+        # preferred by ctypes manual than using ctypes.util.find_library()
+        
+        getlib = self.find_path()
+        if getlib is None:
+            msg = "Cannot load library. Are you sure varnam was installed correctly ?"
             raise VarnamLibraryLoadError(msg)
-
+        print "loadpath is {0}".format(getlib)
         try:
             self.lib = getattr(libfunc, getlib)
         except Exception, msg:
@@ -59,6 +67,16 @@ class InternalVarnamLibrary(object):
                 self.bind_function(function)
             except AttributeError, msg:
                 warn("Bind error %s "%function[0], VarnamFunctionNotFound)
+
+    def find_path(self):
+        full_path = None
+        for path in VARNAM_PATHS:
+            for name in VARNAM_NAMES:
+                full_path = os.path.join(path, name)
+                if os.path.isfile(full_path):
+                    return full_path
+        return None
+
 
     def bind_function(self, funcname):
         """ Binds a function to the class from FUNCTION_LIST
