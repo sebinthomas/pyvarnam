@@ -6,11 +6,9 @@
 
 """ Transliteration Test """
 
-from library import InternalVarnamLibrary
-from varnam_defs import *
-from utils import *
-from constants import *
-from varnam import Varnam
+
+from pyvarnam import Varnam
+from pyvarnam.constants import *
 import ctypes as C
 import unittest
 import os
