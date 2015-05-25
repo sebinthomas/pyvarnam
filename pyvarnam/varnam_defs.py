@@ -1,9 +1,20 @@
-#!usr/bin/env python
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
+
 """ Varnam library functions list
 """
 # Varnam library functions list
 from utils import *
 import ctypes as C
+
+
+#REMINDER: Change this for every major release of varnam
+
+LIBVARNAM_MAJOR_VERSION = 3
+
+VARNAM_PATHS = ['/usr/local/lib', '/usr/local/lib/i386-linux-gnu', '/usr/local/lib/x86_64-linux-gnu', '/usr/lib/i386-linux-gnu', '/usr/lib/x86_64-linux-gnu', '/usr/lib']
+
+VARNAM_NAMES = ['libvarnam.so', "libvarnam.so.{0}".format(LIBVARNAM_MAJOR_VERSION), 'libvarnam.dylib', 'varnam.dll']
 
 
 class VarnamHandle(C.Structure):

@@ -1,4 +1,6 @@
-#!usr/bin/env python
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
+
 """ Internal library class which holds all the bound functions
 """
 # TODO : Comments,docstring, tests,code..
@@ -9,15 +11,7 @@ import os
 import sys
 from warnings import warn
 from utils import *
-from varnam_defs import FUNCTION_LIST
-
-#REMINDER: Change this for every major release of varnam
-
-LIBVARNAM_MAJOR_VERSION = 3
-
-VARNAM_PATHS = ['/usr/local/lib', '/usr/local/lib/i386-linux-gnu', '/usr/local/lib/x86_64-linux-gnu', '/usr/lib/i386-linux-gnu', '/usr/lib/x86_64-linux-gnu', '/usr/lib']
-
-VARNAM_NAMES = ['libvarnam.so', "libvarnam.so.{0}".format(LIBVARNAM_MAJOR_VERSION), 'libvarnam.dylib', 'varnam.dll']
+from varnam_defs import *
 
 class InternalVarnamLibrary(object):
     """Internal class which loads the varnam library
@@ -36,6 +30,7 @@ class InternalVarnamLibrary(object):
         """
         #nerathe vilichitundenkil inim vilikenda ennu parayan
         if self.__already_called:
+            print "Already called me once"
             return None
         # Status variable and error code
         self.__status = (0, '')

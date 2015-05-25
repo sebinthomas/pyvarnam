@@ -13,9 +13,9 @@ You need to install libvarnam for pyvarnam to work. You could refer [libvarnam i
 
 To transliterate with pyvarnam, you just have to run the following.
 ```
-from varnam import Varnam
+from pyvarnam import varnam
 
-var_lib=Varnam()
+var_lib=varnam()
 var_lib.varnam_init_from_id("ml")
 result = var_lib.varnam_transliterate("varnam")
 if result is not None:

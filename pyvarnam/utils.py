@@ -1,4 +1,6 @@
-#!usr/bin/env python
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
+
 """Utilities for pyvarnam
 """
 # Utilities for pyvarnam
