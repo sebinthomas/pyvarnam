@@ -21,9 +21,10 @@ You need to install libvarnam for pyvarnam to work. You could refer [libvarnam i
 Download the archive, un-tar/zip and 'cd' into the directory you unzipped the
 archive into and then run
 
-'''
+```
+
  user@user-pc:~/dir-where-you-unzipped$ python setup.py install
-'''
+```
  
 
 ##### Usage
