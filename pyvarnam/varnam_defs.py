@@ -12,7 +12,7 @@ import ctypes as C
 
 LIBVARNAM_MAJOR_VERSION = 3
 
-VARNAM_PATHS = ['/usr/local/lib', '/usr/local/lib/i386-linux-gnu', '/usr/local/lib/x86_64-linux-gnu', '/usr/lib/i386-linux-gnu', '/usr/lib/x86_64-linux-gnu', '/usr/lib']
+VARNAM_PATHS = ['','..','/usr/local/lib', '/usr/local/lib/i386-linux-gnu', '/usr/local/lib/x86_64-linux-gnu', '/usr/lib/i386-linux-gnu', '/usr/lib/x86_64-linux-gnu', '/usr/lib']
 
 VARNAM_NAMES = ['libvarnam.so', "libvarnam.so.{0}".format(LIBVARNAM_MAJOR_VERSION), 'libvarnam.dylib', 'varnam.dll']
 

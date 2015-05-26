@@ -1,5 +1,14 @@
 # Pyvarnam
 
+```
+     _     _
+    /  \  /  \         |
+    \_//  \_//  /\_____|
+     _     |_   _ _ _ 
+    ( )_| (|_) ()| | )O
+    ===================
+     
+```
 Pyvarnam is a python wrapper to the [libvarnam](https://github.com/varnamproject/libvarnam) library.
 
 [Varnam](http://www.varnamproject.com/) is an open-source transliterator suited for Indian languages and the
@@ -8,6 +17,14 @@ main component is a C library called `libvarnam`. Pyvarnam provides python bindi
 ##### Installation
 
 You need to install libvarnam for pyvarnam to work. You could refer [libvarnam installation](https://github.com/varnamproject/libvarnam#installing-libvarnam) to find out how to install libvarnam.
+
+Download the archive, un-tar/zip and 'cd' into the directory you unzipped the
+archive into and then run
+
+'''
+ user@user-pc:~/dir-where-you-unzipped$ python setup.py install
+'''
+ 
 
 ##### Usage
 
