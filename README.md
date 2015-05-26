@@ -1,13 +1,11 @@
 # Pyvarnam
 
-```
-     _     _
+```  _     _
     /  \  /  \         |
     \_//  \_//  /\_____|
      _     |_   _ _ _ 
     ( )_| (|_) ()| | )O
-    ===================
-     
+    ===================     
 ```
 Pyvarnam is a python wrapper to the [libvarnam](https://github.com/varnamproject/libvarnam) library.
 
@@ -18,14 +16,12 @@ main component is a C library called `libvarnam`. Pyvarnam provides python bindi
 
 You need to install libvarnam for pyvarnam to work. You could refer [libvarnam installation](https://github.com/varnamproject/libvarnam#installing-libvarnam) to find out how to install libvarnam.
 
-Download the archive, un-tar/zip and 'cd' into the directory you unzipped the
+Download the archive, un-tar/zip and `cd` into the directory you unzipped the
 archive into and then run
 
 ```
-
- user@user-pc:~/dir-where-you-unzipped$ python setup.py install
+ user@user-pc:~/unzipped-dir$ python setup.py install
 ```
- 
 
 ##### Usage
 
@@ -46,10 +42,9 @@ see which all functions are available.
 ##### Running the tests
 
 A basic test suite has been implemented based on the transliteration tests in
-libvarnam. To run them, run
+libvarnam. To run them, `cd` to the `tests` folder in the archive and run
 
 ```
 python test.py
 ```
-Currently pyvarnam has only been tested in linux. If you find any bugs or feel the need to refactor the code,
-don't hesitate to submit a pull request :)
+Currently pyvarnam has only been tested in Debian. If you find any bugs or would like to suggest some other changes, feel free to contact me. 
