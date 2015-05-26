@@ -1,11 +1,13 @@
 # Pyvarnam
 
-```  _     _
+```
+     _     _
     /  \  /  \         |
     \_//  \_//  /\_____|
      _     |_   _ _ _ 
     ( )_| (|_) ()| | )O
-    ===================     
+    ===================
+     
 ```
 Pyvarnam is a python wrapper to the [libvarnam](https://github.com/varnamproject/libvarnam) library.
 
