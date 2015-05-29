@@ -38,6 +38,7 @@ if result is not None:
     print result[0][0]
     
 ```
+
 As of now only some of the functions mentioned in libvarnam/api.h has been implemented. You could refer `varnam.py` to
 see which all functions are available. 
 
@@ -49,4 +50,12 @@ libvarnam. To run them, `cd` to the `tests` folder in the archive and run
 ```
 python test.py
 ```
-Currently pyvarnam has only been tested in Debian. If you find any bugs or would like to suggest some other changes, feel free to contact me. 
+Currently pyvarnam has only been tested in Debian. If you find any bugs or would like to suggest some other changes,
+report the issue here or feel free to contact me.
+
+##### License & Contact
+
+This project is licensed under the MIT License. For more info, see LICENSE.txt
+Copyright (c) 2015 Sebin Thomas
+
+You could contact me at me(at)sebin(dot)in or I'm @stc043 on twitter. 
