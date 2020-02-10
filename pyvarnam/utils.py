@@ -6,7 +6,7 @@
 # Utilities for pyvarnam
 
 import ctypes as C
-from constants import *
+from .constants import *
 # TODO : all constants for C types over here
 # custom exception classes here
 # Runtime context picker over here
@@ -36,10 +36,10 @@ class VarnamResultNotSuccess(Exception):
     to return something but the library call
     does not return a success
     """
-    def __init__(self, func_name, value):
-        self.func_name = func_name
+    def __init__(self, function_name, value):
+        self.function_name = function_name
         self.value = value
     def __str__(self):
-        print "-- %s did not return VARNAM_SUCCESS."% self.func_name
+        print("-- %s did not return VARNAM_SUCCESS."% self.function_name)
         return repr(self.value)    
     

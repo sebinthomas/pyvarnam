@@ -10,8 +10,8 @@ from ctypes.util import find_library
 import os
 import sys
 from warnings import warn
-from utils import *
-from varnam_defs import *
+from .utils import *
+from .varnam_defs import *
 
 class InternalVarnamLibrary(object):
     """Internal class which loads the varnam library
@@ -30,7 +30,7 @@ class InternalVarnamLibrary(object):
         """
         #nerathe vilichitundenkil inim vilikenda ennu parayan
         if self.__already_called:
-            print "Already called me once"
+            print("Already called me once")
             return None
         # Status variable and error code
         self.__status = (0, '')
@@ -49,18 +49,18 @@ class InternalVarnamLibrary(object):
         if getlib is None:
             msg = "Cannot load library. Are you sure varnam was installed correctly ?"
             raise VarnamLibraryLoadError(msg)
-        print "loadpath is {0}".format(getlib)
+        print("loadpath is {0}".format(getlib))
         try:
             self.lib = getattr(libfunc, getlib)
-        except Exception, msg:
-            print "Exception occured while loading library: %s"%str(msg)
+        except Exception as msg:
+            print("Exception occured while loading library: %s"%str(msg))
             self.__status = (1, msg)
         if self.__status[0] == 0:
             self.__status = (0, "Library loaded at %s"%str(self.lib))
         for function in FUNCTION_LIST:
             try:
                 self.bind_function(function)
-            except AttributeError, msg:
+            except AttributeError as msg:
                 warn("Bind error %s "%function[0], VarnamFunctionNotFound)
 
     def find_path(self):

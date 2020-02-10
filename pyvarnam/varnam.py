@@ -4,9 +4,9 @@
 """
 The main varnam module.
 """
-from library import InternalVarnamLibrary
-from utils import *
-from varnam_defs import *
+from .library import InternalVarnamLibrary
+from .utils import *
+from .varnam_defs import *
 from warnings import warn
 import ctypes as C
 
@@ -30,6 +30,7 @@ class Varnam:
         
         scheme_file: valid scheme file(*.vst) path
         """
+        scheme_file = bytes(scheme_file, 'utf-8')
         return self.lib.varnam_init(
             scheme_file, C.byref(self.handle),
             C.byref(self.message))
@@ -39,6 +40,7 @@ class Varnam:
         Initializes the varnam library from language code
         lang_code: language code in ISO 639-1 format
         """
+        lang_code = bytes(lang_code, 'utf-8')
         return self.lib.varnam_init_from_id(
             lang_code, C.byref(self.handle),
             C.byref(self.message))
@@ -57,6 +59,7 @@ class Varnam:
                  and their confidence values.
         input: input word to transliterate.
         """
+        input = bytes(input, 'utf-8')
         varray_object = Varray()
         varray_ptr = C.pointer(varray_object)
         res_code = self.lib.varnam_transliterate(self.handle,
@@ -80,6 +83,11 @@ class Varnam:
 
         for more info regarding parameters look into api.h
         """
+        pattern = bytes(pattern, 'utf-8')
+        value1 = bytes(value1, 'utf-8')
+        value2 = bytes(value2, 'utf-8')
+        value3 = bytes(value3, 'utf-8')
+        tag = bytes(tag, 'utf-8')
         res_code = self.lib.varnam_create_token(self.handle,
                                                 pattern, value1,
                                                 value2, value3,
@@ -96,6 +104,7 @@ class Varnam:
         
         word: const char* string to learn
         """
+        word = bytes(word, 'utf-8')
         res_code = self.lib.varnam_learn(self.handle, word)
         return res_code
 
@@ -106,17 +115,20 @@ class Varnam:
         
         word: const char* string word
         """
+        pattern = bytes(pattern, 'utf-8')
+        word = bytes(word, 'utf-8')
         res_code = self.lib.varnam_train(self.handle, pattern, word)
         return res_code
 
-    def varnam_config(self, type, *args):
+    def varnam_config(self, conf_type, *args):
         """
         Varnam configuration.
 
         Does not persist. Resets to default when varnam_init()
         is called again
         """
-        res_code = self.lib.varnam_config(self.handle, type, *args)
+        conf_type = bytes(conf_type, 'utf-8')
+        res_code = self.lib.varnam_config(self.handle, conf_type, *args)
         return res_code
 
     def varnam_learn_from_file(self, filepath, callback):
@@ -127,6 +139,7 @@ class Varnam:
         callback: callback function invoked on each word
                   consult api.h for more information
         """
+        filepath = bytes(filepath, 'utf-8')
         l_callback = self.learn_callback(callback)
         res_code = self.lib.varnam_learn_from_file(self.handle, filepath,
                                                    self.learn_status, l_callback,

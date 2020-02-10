@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from varnam import Varnam
+from .varnam import Varnam
 varnam = Varnam
 __author__ = "Sebin Thomas"
 __email__ = "me@sebin.in"

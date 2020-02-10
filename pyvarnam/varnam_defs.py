@@ -4,7 +4,7 @@
 """ Varnam library functions list
 """
 # Varnam library functions list
-from utils import *
+from .utils import *
 import ctypes as C
 
 
