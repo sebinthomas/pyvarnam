@@ -6,6 +6,8 @@
     \_//  \_//  /\_____|
      _     |_   _ _ _ 
     ( )_| (|_) ()| | )O
+                 _ _ _
+                ()| | |
     ===================
      
 ```
@@ -18,8 +20,14 @@ main component is a C library called `libvarnam`. Pyvarnam provides python bindi
 
 You need to install libvarnam for pyvarnam to work. You could refer [libvarnam installation](https://github.com/varnamproject/libvarnam#installing-libvarnam) to find out how to install libvarnam.
 
-Download the archive, un-tar/zip and `cd` into the directory you unzipped the
-archive into and then run
+You can install it from PyPi using
+
+```
+pip install pyvarnam
+```
+
+Or you can download the archive, un-tar/zip and `cd` into the directory you unzipped the
+archive into, and then run
 
 ```
  user@user-pc:~/unzipped-dir$ python setup.py install
@@ -31,7 +39,7 @@ To transliterate with pyvarnam, you just have to run the following.
 ```
 from pyvarnam import varnam
 
-var_lib=varnam()
+var_lib = varnam()
 var_lib.varnam_init_from_id("ml")
 result = var_lib.varnam_transliterate("varnam")
 if result is not None:
