@@ -16,6 +16,7 @@ setup(
     version= __version__,
     description= 'Pyvarnam provides python bindings for libvarnam',
     long_description= long_description,
+    long_description_content_type='text/markdown',
     url= 'https://github.com/sebinthomas/pyvarnam',
     author= __author__,
     author_email= __email__,
@@ -24,5 +25,11 @@ setup(
     setup_requires=['setuptools-git'],
     packages=find_packages(exclude= 'tests'),
     install_requires= ['setuptools'],
-    zip_safe= False
+    zip_safe= False,
+    classifiers=[
+        'Topic :: Text Processing :: Linguistic',
+        'Programming Language :: Python :: 3',
+        'License :: OSI Approved :: MIT License',
+    ],
+    python_requires='>3.0',
 )
